@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.Role" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="jsname" property="jsname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, jsname
+  </sql>
+  
+  <select id="getRoleList" resultMap="BaseResultMap">
+  
+  	select * from t_Role
+  
+  </select>
+  
+   <delete id="deleteRoleUser" parameterType="java.lang.String">
+     delete from user_role where userId=#{userId}
+  </delete>
+  
+  <select id="queryRoleTree" resultMap="BaseResultMap">
+  	select * from t_Role
+  </select>
+  
+  
+  <select id="queryBing" resultType="java.util.LinkedHashMap">
+ SELECT  m.mon 月份,sum(case when u.userid is null then 0 else 1 end) 人数 from monlist m LEFT JOIN t_yzuser u ON   m.mon = DATE_FORMAT(u.lasttime,'%Y-%m')
+	
+ where m.mon>='2017-01' and m.mon&lt;='2017-12' 
+	 
+	  GROUP BY m.mon  ORDER BY m.mon  ASC; 
+  </select>
+  
+  
+  <select id="queryYuan" resultType="java.util.LinkedHashMap">
+  
+SELECT  m.mon 月份,sum(case when u.userid is null then 0 else 1 end) 人数 from monlist m LEFT JOIN t_yzuser u ON   m.mon = DATE_FORMAT(u.lasttime,'%Y-%m')
+	
+ where m.mon>='2017-01' and m.mon&lt;='2017-12' 
+	 
+	  GROUP BY m.mon  ORDER BY m.mon  ASC; 
+
+</select>
+  
+  
+  
+  <insert id="addUserRoleRelation" parameterType="java.util.List">
+   insert into user_role (userid,roleId)   
+    values  
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.userId},#{item.roleId})  
+    </foreach> 
+  
+  </insert>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_role
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_role
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jk.model.Role" >
+    insert into t_role (id, jsname)
+    values (#{id,jdbcType=VARCHAR}, #{jsname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.model.Role" >
+    insert into t_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jsname != null" >
+        jsname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="jsname != null" >
+        #{jsname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.model.Role" >
+    update t_role
+    <set >
+      <if test="jsname != null" >
+        jsname = #{jsname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.model.Role" >
+    update t_role
+    set jsname = #{jsname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

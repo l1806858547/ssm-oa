@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.YzuserMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.Yzuser" >
+    <id column="userid" property="userid"  />
+    <result column="username" property="username"  />
+    <result column="userpass" property="userpass"  />
+    <result column="zctime" property="zctime"/>
+    <result column="lasttime" property="lasttime"  />
+    <result column="usersex" property="usersex" />
+    <result column="userage" property="userage"  />
+    <result column="userimg" property="userimg"  />
+  </resultMap>
+<!--   <sql id="Base_Column_List" > -->
+<!--     userid, username, userpass, zctime, lasttime, usersex, userage, userimg -->
+<!--   </sql> -->
+
+
+<!--   登录 -->
+  <select id="login" resultMap="BaseResultMap" parameterType="com.jk.model.Yzuser">
+  
+  select * from t_yzuser where username=#{username} and userpass=#{userpass}
+  
+  </select>
+  
+  
+  <select id="selectyzuser" resultMap="BaseResultMap" parameterType="com.jk.model.Yzuser">
+  
+  	select * from t_yzuser
+  
+  </select>
+  
+  <select id="getYzuserList" parameterType="com.jk.model.Yzuser" resultType="java.util.LinkedHashMap">
+  
+  	select * from user_role ur,t_role rl where ur.roleId=rl.id and ur.userId=#{userid}
+  
+  </select>
+  
+  
+  <!-- <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_yz_user
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_yz_user
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jk.model.Yzuser" >
+    insert into t_yz_user (userid, username, userpass, 
+      zctime, lasttime, usersex, 
+      userage, userimg)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpass,jdbcType=VARCHAR}, 
+      #{zctime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}, #{usersex,jdbcType=VARCHAR}, 
+      #{userage,jdbcType=VARCHAR}, #{userimg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.model.Yzuser" >
+    insert into t_yz_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="userpass != null" >
+        userpass,
+      </if>
+      <if test="zctime != null" >
+        zctime,
+      </if>
+      <if test="lasttime != null" >
+        lasttime,
+      </if>
+      <if test="usersex != null" >
+        usersex,
+      </if>
+      <if test="userage != null" >
+        userage,
+      </if>
+      <if test="userimg != null" >
+        userimg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpass != null" >
+        #{userpass,jdbcType=VARCHAR},
+      </if>
+      <if test="zctime != null" >
+        #{zctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lasttime != null" >
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usersex != null" >
+        #{usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null" >
+        #{userage,jdbcType=VARCHAR},
+      </if>
+      <if test="userimg != null" >
+        #{userimg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.model.Yzuser" >
+    update t_yz_user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpass != null" >
+        userpass = #{userpass,jdbcType=VARCHAR},
+      </if>
+      <if test="zctime != null" >
+        zctime = #{zctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lasttime != null" >
+        lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usersex != null" >
+        usersex = #{usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null" >
+        userage = #{userage,jdbcType=VARCHAR},
+      </if>
+      <if test="userimg != null" >
+        userimg = #{userimg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.model.Yzuser" >
+    update t_yz_user
+    set username = #{username,jdbcType=VARCHAR},
+      userpass = #{userpass,jdbcType=VARCHAR},
+      zctime = #{zctime,jdbcType=TIMESTAMP},
+      lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      usersex = #{usersex,jdbcType=VARCHAR},
+      userage = #{userage,jdbcType=VARCHAR},
+      userimg = #{userimg,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update> -->
+</mapper>

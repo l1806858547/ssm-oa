@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.RoleTreeMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.RoleTree" >
+    <id column="jid" property="jid" jdbcType="VARCHAR" />
+    <result column="qid" property="qid" jdbcType="VARCHAR" />
+    <result column="jqid" property="jqid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jid, qid, jqid
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_tree
+    where jid = #{jid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from role_tree
+    where jid = #{jid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jk.model.RoleTree" >
+    insert into role_tree (jid, qid, jqid
+      )
+    values (#{jid,jdbcType=VARCHAR}, #{qid,jdbcType=VARCHAR}, #{jqid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.model.RoleTree" >
+    insert into role_tree
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jid != null" >
+        jid,
+      </if>
+      <if test="qid != null" >
+        qid,
+      </if>
+      <if test="jqid != null" >
+        jqid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jid != null" >
+        #{jid,jdbcType=VARCHAR},
+      </if>
+      <if test="qid != null" >
+        #{qid,jdbcType=VARCHAR},
+      </if>
+      <if test="jqid != null" >
+        #{jqid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.model.RoleTree" >
+    update role_tree
+    <set >
+      <if test="qid != null" >
+        qid = #{qid,jdbcType=VARCHAR},
+      </if>
+      <if test="jqid != null" >
+        jqid = #{jqid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jid = #{jid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.model.RoleTree" >
+    update role_tree
+    set qid = #{qid,jdbcType=VARCHAR},
+      jqid = #{jqid,jdbcType=VARCHAR}
+    where jid = #{jid,jdbcType=VARCHAR}
+  </update>
+</mapper>

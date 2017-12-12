@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.UserRole" >
+    <id column="usid" property="usid" jdbcType="VARCHAR" />
+    <result column="jid" property="jid" jdbcType="VARCHAR" />
+    <result column="yjid" property="yjid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    usid, jid, yjid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_role
+    where usid = #{usid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_role
+    where usid = #{usid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jk.model.UserRole" >
+    insert into user_role (usid, jid, yjid
+      )
+    values (#{usid,jdbcType=VARCHAR}, #{jid,jdbcType=VARCHAR}, #{yjid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.model.UserRole" >
+    insert into user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usid != null" >
+        usid,
+      </if>
+      <if test="jid != null" >
+        jid,
+      </if>
+      <if test="yjid != null" >
+        yjid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usid != null" >
+        #{usid,jdbcType=VARCHAR},
+      </if>
+      <if test="jid != null" >
+        #{jid,jdbcType=VARCHAR},
+      </if>
+      <if test="yjid != null" >
+        #{yjid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.model.UserRole" >
+    update user_role
+    <set >
+      <if test="jid != null" >
+        jid = #{jid,jdbcType=VARCHAR},
+      </if>
+      <if test="yjid != null" >
+        yjid = #{yjid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where usid = #{usid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.model.UserRole" >
+    update user_role
+    set jid = #{jid,jdbcType=VARCHAR},
+      yjid = #{yjid,jdbcType=VARCHAR}
+    where usid = #{usid,jdbcType=VARCHAR}
+  </update>
+</mapper>
